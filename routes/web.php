@@ -18,19 +18,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify'=> true]);
+
 // Route student
 Route::middleware(['auth','user-role:student'])->group(function()
 {
-    Route::get("/home",[HomeController::class, 'studentHome'])->name("home");
+    Route::get("/home",[HomeController::class, 'studentHome'])->name("home")->middleware('verified');
 });
-// Route student
+// Route instructor
 Route::middleware(['auth','user-role:instructor'])->group(function()
 {
-    Route::get("/instructor/home",[HomeController::class, 'instructorHome'])->name("instructor.home");
+    Route::get("/instructor/home",[HomeController::class, 'instructorHome'])->name("instructor.home")->middleware('verified');
 });
 // Route instructor
 Route::middleware(['auth','user-role:admin'])->group(function()
 {
-    Route::get("/admin/home",[HomeController::class, 'adminHome'])->name("admin.home");
+    Route::get("/admin/home",[HomeController::class, 'adminHome'])->name("admin.home")->middleware('verified');
 });
