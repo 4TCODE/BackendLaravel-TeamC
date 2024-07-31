@@ -31,7 +31,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function instructor()
+    public function instructorHome()
     {
         return view('home',["msg"=>"Hello! I am instructor"]);
     }
